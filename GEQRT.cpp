@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
 {
     if (argc < 2)
     {
-        cerr << "Usage: GE0 [natural number]\n";
+        cerr << "Usage: GE [tile size]\n";
         return EXIT_FAILURE;
     }
 

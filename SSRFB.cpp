@@ -8,14 +8,15 @@
 #include <omp.h>
 #include <cstdlib>
 #include <cfloat>
+#include <cmath>
 #include <cassert>
 
 #include <CoreBlasTile.hpp>
 #include <TMatrix.hpp>
 
 #define MAX_DIVS 100     // Maximum number of candidates of inner block size
-#define MAX_THREADS 4    // for iMac
-//#define MAX_THREADS 8    // for dogwood
+//#define MAX_THREADS 4    // for iMac
+#define MAX_THREADS 8    // for dogwood
 #define TRIES 5          // # of measurement
 
 using namespace std;

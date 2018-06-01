@@ -8,6 +8,7 @@
 #include <omp.h>
 #include <cstdlib>
 #include <cfloat>
+#include <cmath>
 #include <cassert>
 
 #include <CoreBlasTile.hpp>

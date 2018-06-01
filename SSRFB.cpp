@@ -17,11 +17,11 @@
 #define MAX_DIVS 100     // Maximum number of candidates of inner block size
 //#define MAX_THREADS 4    // for iMac
 #define MAX_THREADS 8    // for dogwood
-#define TRIES 5          // # of measurement
+#define TRIES 1          // # of measurement
 
 using namespace std;
 
-//#define DEBUG
+#define DEBUG
 
 int main(int argc, const char * argv[])
 {

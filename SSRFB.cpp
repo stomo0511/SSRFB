@@ -14,7 +14,8 @@
 #include <TMatrix.hpp>
 
 #define MAX_DIVS 100     // Maximum number of candidates of inner block size
-#define MAX_THREADS 4    // for iMac
+#define MAX_THREADS 1
+//#define MAX_THREADS 4    // for iMac
 //#define MAX_THREADS 8    // for dogwood
 #define TRIES 5          // # of measurement
 
@@ -142,20 +143,16 @@ int main(int argc, const char * argv[])
 
                 A.Set_Rnd(20180423);
 
-				#pragma omp parallel private(time)
                 {
-					#pragma omp single
                 	{
                 		GEQRT( A(0,0), T(0,0) );
                 	}
 
-					#pragma omp for
                 	for (int j=1; j<=MAX_THREADS; j++)
                 	{
                 		LARFB( PlasmaLeft, PlasmaTrans, A(0,0), T(0,0), A(0,j) );
                 	}
 
-					#pragma omp single
                 	{
                 		TSQRT( A(0,0), A(1,0), T(1,0) );
                 	}
@@ -163,7 +160,6 @@ int main(int argc, const char * argv[])
                 	// Timer start
                 	time = omp_get_wtime();
 
-					#pragma omp for
                 	for (int j=1; j<=MAX_THREADS*cc; j++)
 //                	for (int j=1; j<=MAX_THREADS; j++)
                 	{
@@ -175,8 +171,7 @@ int main(int argc, const char * argv[])
                 	time = omp_get_wtime() - time;
                 	time /= cc;
 
-					#pragma omp master
-                		cout << time << endl;
+               		cout << time << endl;
                 }
             }  // if (ibs[i] >= 0) END
         }  // i-loop END

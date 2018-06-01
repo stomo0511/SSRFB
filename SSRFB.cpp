@@ -164,19 +164,19 @@ int main(int argc, const char * argv[])
                 	time = omp_get_wtime();
 
 					#pragma omp for
-                	for (int j=1; j<=MAX_THREADS*cc; j++)
-//                	for (int j=1; j<=MAX_THREADS; j++)
+//                	for (int j=1; j<=MAX_THREADS*cc; j++)
+                	for (int j=1; j<=MAX_THREADS; j++)
                 	{
-                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j%MAX_THREADS), A(1,j%MAX_THREADS) );
-//                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j), A(1,j) );
+//                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j%MAX_THREADS), A(1,j%MAX_THREADS) );
+                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j), A(1,j) );
                 	}
 
                 	// Timer stop
                 	time = omp_get_wtime() - time;
-                	time /= cc;
+//                	time /= cc;
 
 					#pragma omp master
-                		cout << time << endl;
+                	cout << time << endl;
                 }
             }  // if (ibs[i] >= 0) END
         }  // i-loop END

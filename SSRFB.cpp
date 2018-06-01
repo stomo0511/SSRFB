@@ -160,16 +160,16 @@ int main(int argc, const char * argv[])
                 	// Timer start
                 	time = omp_get_wtime();
 
-                	for (int j=1; j<=MAX_THREADS*cc; j++)
-//                	for (int j=1; j<=MAX_THREADS; j++)
+//                	for (int j=1; j<=MAX_THREADS*cc; j++)
+                	for (int j=1; j<=MAX_THREADS; j++)
                 	{
-                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j%MAX_THREADS), A(1,j%MAX_THREADS) );
-//                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j), A(1,j) );
+//                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j%MAX_THREADS), A(1,j%MAX_THREADS) );
+                		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j), A(1,j) );
                 	}
 
                 	// Timer stop
                 	time = omp_get_wtime() - time;
-                	time /= cc;
+//                	time /= cc;
 
                		cout << time << endl;
                 }

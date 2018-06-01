@@ -15,8 +15,8 @@
 #include <TMatrix.hpp>
 
 #define MAX_DIVS 100     // Maximum number of candidates of inner block size
-#define MAX_THREADS 4    // for iMac
-//#define MAX_THREADS 8    // for dogwood
+//#define MAX_THREADS 4    // for iMac
+#define MAX_THREADS 8    // for dogwood
 #define TRIES 5          // # of measurement
 
 using namespace std;

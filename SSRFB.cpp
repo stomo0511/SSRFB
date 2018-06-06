@@ -63,6 +63,8 @@ int main(int argc, const char * argv[])
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     double time;
+    static double ttime;
+	#pragma omp threadprivate(ttime)
 
     for (int c = 0; c<TRIES+1; c++)
     {
@@ -71,7 +73,7 @@ int main(int argc, const char * argv[])
             if ((ibs[i] >= 10) && (ibs[i] != nb))
             {
 				#pragma omp master
-            	time = DBL_MAX;
+            	time = 0.0;
 
                 TMatrix A( 2*nb, (MAX_THREADS+1)*nb, nb, nb, ibs[i]);
                 TMatrix T( 2*ibs[i], (MAX_THREADS+1)*nb, ibs[i], nb, ibs[i]);
@@ -80,8 +82,6 @@ int main(int argc, const char * argv[])
 
 				#pragma omp parallel
                 {
-                	double ttime;
-
 					#pragma omp single
                 	{
                 		GEQRT( A(0,0), T(0,0) );
@@ -98,10 +98,12 @@ int main(int argc, const char * argv[])
                 		TSQRT( A(0,0), A(1,0), T(1,0) );
                 	}
 
+					#pragma omp barrier
+
                 	// Timer start
                 	ttime = omp_get_wtime();
 
-					#pragma omp for schedule(static,1)
+					#pragma omp for
                 	for (int j=1; j<=MAX_THREADS; j++)
                 	{
                 		SSRFB( PlasmaLeft, PlasmaTrans, A(1,0), T(1,0), A(0,j), A(1,j) );
@@ -112,7 +114,7 @@ int main(int argc, const char * argv[])
 
 					#pragma omp critical
                 	{
-                		if (time > ttime)
+                		if (time < ttime)
                 			time = ttime;
                 	}
                 }

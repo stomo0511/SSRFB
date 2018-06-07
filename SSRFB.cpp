@@ -112,6 +112,7 @@ int main(int argc, const char * argv[])
                 	// Timer stop
                 	ttime = omp_get_wtime() - ttime;
 
+					#pragma omp barrier
 					#pragma omp critical
                 	{
                 		if (time < ttime)
